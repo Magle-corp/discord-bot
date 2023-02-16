@@ -16,7 +16,7 @@ module.exports = {
       style: TextInputStyle.Short,
       maxLength: 3,
       default: "5",
-      required: false,
+      required: true,
     },
     {
       name: "responseOne",

@@ -5,8 +5,12 @@ const getPollCreationModalInputValues = (pollModalFields, interaction) => {
   let modalInputValues = {};
 
   pollModalFields.forEach((field) => {
-    const inputValue = interaction.fields.getTextInputValue(field.name);
+    let inputValue = interaction.fields.getTextInputValue(field.name);
     const fieldAssociatedEmoji = randomEmoji();
+
+    if (field.name === 'time' && !/^\d+$/.test(inputValue)) {
+      inputValue = '5'
+    }
 
     modalInputValues = {
       ...modalInputValues,
