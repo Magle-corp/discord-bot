@@ -1,12 +1,15 @@
-const {
+import {
   ModalBuilder,
   TextInputBuilder,
   ActionRowBuilder,
   SlashCommandBuilder,
-} = require("discord.js");
-const pollModal = require("./modal");
+} from "discord.js";
+import pollModal from "./modal.js";
 
-module.exports = {
+/**
+ * Feature command, create the poll modal form.
+ */
+export default {
   data: new SlashCommandBuilder()
     .setName("poll")
     .setDescription("Generates a poll !"),

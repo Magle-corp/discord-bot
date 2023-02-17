@@ -1,8 +1,15 @@
-const { Events } = require("discord.js");
-const pollHelpers = require("./helpers");
-const pollModal = require("./modal");
+import { Events } from "discord.js";
+import pollHelpers from "./helpers.js";
+import pollModal from "./modal.js";
 
-module.exports = {
+/**
+ * Feature event.
+ *
+ * - create a poll embed based on the modal entries of the poll command.
+ * - associate an emoji with each response for users to interact with the poll.
+ * - collect interactions and create an embed with the results.
+ */
+export default {
   name: Events.InteractionCreate,
   eventName: "poll",
   once: false,

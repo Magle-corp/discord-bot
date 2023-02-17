@@ -1,7 +1,7 @@
-const dotenv = require("dotenv");
+import dotenv from "dotenv";
 dotenv.config();
 
-module.exports = {
+export default {
   development: {
     username: process.env.DATABASE_USER,
     password: process.env.DATABASE_PASSWORD,
