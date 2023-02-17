@@ -1,6 +1,7 @@
 import { Events } from "discord.js";
 import pollHelpers from "./helpers.js";
-import pollModal from "./modal.js";
+import pollModal from "./createPollModalConfig.js";
+import embedService from "../../utils/embedService.js";
 
 /**
  * Feature event.
@@ -11,11 +12,11 @@ import pollModal from "./modal.js";
  */
 export default {
   name: Events.InteractionCreate,
-  eventName: "poll",
+  eventName: "creer_un_sondage",
   once: false,
   async execute(client, interaction) {
-    if (!interaction.isModalSubmit()) return;
-    if (!interaction.customId === pollModal.name) return;
+    if (!interaction.isModalSubmit() || interaction.customId !== pollModal.name)
+      return;
 
     // Get input values from a poll's creation modal.
     const modalAnswers = pollHelpers.getPollCreationModalInputValues(
@@ -31,7 +32,7 @@ export default {
     } = pollHelpers.getPollPossibilities(modalAnswers);
 
     // Create poll embed.
-    const pollEmbed = pollHelpers.createEmbed(
+    const pollEmbed = embedService.createEmbed(
       interaction.user,
       modalAnswers.question.value,
       `Sondage ouvert ${modalAnswers.time.value} minute${
@@ -68,7 +69,7 @@ export default {
 
     reactionCollector.on("end", async (collected) => {
       // Create poll result embed.
-      const resultEmbed = pollHelpers.createEmbed(
+      const resultEmbed = embedService.createEmbed(
         interaction.user,
         modalAnswers.question.value
       );

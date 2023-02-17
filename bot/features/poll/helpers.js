@@ -64,15 +64,6 @@ const getPollPossibilities = (modalInputValues) => {
   };
 };
 
-const createEmbed = (user, title, description) => {
-  return new EmbedBuilder()
-    .setTitle(title)
-    .setDescription(
-      description ? (description.length === 0 ? " " : description) : " "
-    )
-    .setAuthor({ name: user.username, iconURL: user.avatarURL() });
-};
-
 const getPollResults = (pollResponsePossibilities, collected) => {
   let pollResults = [];
   let pollEmbedResultFields = [];
@@ -113,6 +104,5 @@ const getPollResults = (pollResponsePossibilities, collected) => {
 export default {
   getPollCreationModalInputValues,
   getPollPossibilities,
-  createEmbed,
   getPollResults,
 };

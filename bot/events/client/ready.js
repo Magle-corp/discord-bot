@@ -16,7 +16,7 @@ export default {
     );
 
     const featureFiles = (
-      await pGlob(process.cwd() + "/features/*/command.js")
+      await pGlob(process.cwd() + "/features/*/*.command.js")
     ).map((filePath) => filePath);
 
     const commands = await Promise.all(

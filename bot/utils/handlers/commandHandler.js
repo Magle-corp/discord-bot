@@ -10,7 +10,7 @@ const pGlob = promisify(glob);
  */
 export default async (client) => {
   const featureFiles = (
-    await pGlob(process.cwd() + "/features/*/command.js")
+    await pGlob(process.cwd() + "/features/*/*.command.js")
   ).map((filePath) => filePath);
 
   featureFiles.map(async (commandFile) => {

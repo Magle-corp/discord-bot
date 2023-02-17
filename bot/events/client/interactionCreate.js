@@ -1,4 +1,5 @@
 import { Events } from "discord.js";
+import rolesGuard from "../../utils/rolesGuard.js";
 
 /**
  * Discord event, listen interactions.
@@ -19,11 +20,23 @@ export default {
       return;
     }
 
+    if (
+      command.allowedRoles &&
+      !rolesGuard(command.allowedRoles, interaction)
+    ) {
+      await interaction.reply({
+        content:
+          "Vous n'avez pas le rôle nécessaire pour executer cette commande",
+        ephemeral: true,
+      });
+      return;
+    }
+
     try {
       await command.execute(interaction);
     } catch (error) {
       await interaction.reply({
-        content: "There was an error while executing this command",
+        content: "Une erreur est survenue dans l'execution de la commande",
         ephemeral: true,
       });
       console.error(

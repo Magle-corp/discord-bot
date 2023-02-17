@@ -10,7 +10,7 @@ const pGlob = promisify(glob);
  */
 export default async (client) => {
   const eventFiles = await pGlob(process.cwd() + "/events/*/*.js");
-  const featureFiles = await pGlob(process.cwd() + "/features/*/event.js");
+  const featureFiles = await pGlob(process.cwd() + "/features/*/*.event.js");
 
   const mergedEventFiles = await featureFiles.concat(eventFiles);
 

@@ -1,11 +1,7 @@
 import { Client, GatewayIntentBits, Collection } from "discord.js";
 import dotenv from "dotenv";
-import database from "./database/index.js";
 
 dotenv.config();
-
-// Start Sequelize ORM.
-await database();
 
 // Add appropriates intents for the bot.
 const client = new Client({

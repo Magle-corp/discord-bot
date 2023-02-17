@@ -12,4 +12,4 @@ ADD https://github.com/ufoscout/docker-compose-wait/releases/download/$WAIT_VERS
 RUN chmod +x /wait
 
 # Docker wait and build app.
-CMD /wait && npm i && npx sequelize db:migrate && node index.js
+CMD /wait && npm i && npx sequelize db:create && node index.js
