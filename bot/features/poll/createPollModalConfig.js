@@ -1,6 +1,6 @@
-const { TextInputStyle } = require("discord.js");
+import { TextInputStyle } from "discord.js";
 
-module.exports = {
+export default {
   name: "poll_modal",
   title: "Créer un sondage",
   fields: [

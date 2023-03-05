@@ -1,5 +1,5 @@
-const { EmbedBuilder } = require("discord.js");
-const randomEmoji = require("../../utils/getRandomEmoji");
+import { EmbedBuilder } from "discord.js";
+import randomEmoji from "../../utils/getRandomEmoji.js";
 
 const getPollCreationModalInputValues = (pollModalFields, interaction) => {
   let modalInputValues = {};
@@ -8,8 +8,8 @@ const getPollCreationModalInputValues = (pollModalFields, interaction) => {
     let inputValue = interaction.fields.getTextInputValue(field.name);
     const fieldAssociatedEmoji = randomEmoji();
 
-    if (field.name === 'time' && !/^\d+$/.test(inputValue)) {
-      inputValue = '5'
+    if (field.name === "time" && !/^\d+$/.test(inputValue)) {
+      inputValue = "5";
     }
 
     modalInputValues = {
@@ -64,15 +64,6 @@ const getPollPossibilities = (modalInputValues) => {
   };
 };
 
-const createEmbed = (user, title, description) => {
-  return new EmbedBuilder()
-    .setTitle(title)
-    .setDescription(
-      description ? (description.length === 0 ? " " : description) : " "
-    )
-    .setAuthor({ name: user.username, iconURL: user.avatarURL() });
-};
-
 const getPollResults = (pollResponsePossibilities, collected) => {
   let pollResults = [];
   let pollEmbedResultFields = [];
@@ -110,23 +101,8 @@ const getPollResults = (pollResponsePossibilities, collected) => {
   return pollEmbedResultFields;
 };
 
-// const getMostVotedReaction = (collectedReactions) => {
-//   return collectedReactions.reduce(
-//     (mostVote, reaction) =>
-//       mostVote.count > reaction.count ? mostVote : reaction,
-//     { count: 0 }
-//   );
-// };
-//
-// const getMostVotedAnswer = (modalInputValues, mostVotedReaction) => {
-//   return Object.values(modalInputValues).filter((answer) => {
-//     return answer.reaction === mostVotedReaction.emoji.name;
-//   })[0];
-// };
-
-module.exports = {
+export default {
   getPollCreationModalInputValues,
   getPollPossibilities,
-  createEmbed,
   getPollResults,
 };

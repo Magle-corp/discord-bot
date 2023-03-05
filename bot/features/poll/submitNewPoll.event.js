@@ -1,14 +1,22 @@
-const { Events } = require("discord.js");
-const pollHelpers = require("./helpers");
-const pollModal = require("./modal");
+import { Events } from "discord.js";
+import pollHelpers from "./helpers.js";
+import pollModal from "./createPollModalConfig.js";
+import embedService from "../../utils/embedService.js";
 
-module.exports = {
+/**
+ * Feature event.
+ *
+ * - create a poll embed based on the modal entries of the poll command.
+ * - associate an emoji with each response for users to interact with the poll.
+ * - collect interactions and create an embed with the results.
+ */
+export default {
   name: Events.InteractionCreate,
-  eventName: "poll",
+  eventName: "creer_un_sondage",
   once: false,
   async execute(client, interaction) {
-    if (!interaction.isModalSubmit()) return;
-    if (!interaction.customId === pollModal.name) return;
+    if (!interaction.isModalSubmit() || interaction.customId !== pollModal.name)
+      return;
 
     // Get input values from a poll's creation modal.
     const modalAnswers = pollHelpers.getPollCreationModalInputValues(
@@ -24,7 +32,7 @@ module.exports = {
     } = pollHelpers.getPollPossibilities(modalAnswers);
 
     // Create poll embed.
-    const pollEmbed = pollHelpers.createEmbed(
+    const pollEmbed = embedService.createEmbed(
       interaction.user,
       modalAnswers.question.value,
       `Sondage ouvert ${modalAnswers.time.value} minute${
@@ -61,7 +69,7 @@ module.exports = {
 
     reactionCollector.on("end", async (collected) => {
       // Create poll result embed.
-      const resultEmbed = pollHelpers.createEmbed(
+      const resultEmbed = embedService.createEmbed(
         interaction.user,
         modalAnswers.question.value
       );
